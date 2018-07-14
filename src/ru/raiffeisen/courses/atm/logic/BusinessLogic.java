@@ -16,7 +16,7 @@ public class BusinessLogic {
     public static void accountOperation(Account acc, Scanner scanner, Atm atm, UserAccounts userAccounts) {
 
         try {
-            Method method = BusinessLogic.class.getMethod("accountOperation",
+            Method method = BusinessLogic.class.getDeclaredMethod("accountOperation",
                     Account.class,
                     Scanner.class,
                     Atm.class,
@@ -87,11 +87,12 @@ public class BusinessLogic {
 
     }
 
+    @LoggerAtm
     private static String sumCash(Scanner scanner) {
 
         try {
             Method method = BusinessLogic.class.
-                    getMethod(
+                    getDeclaredMethod(
                             "sumCash",
                             Scanner.class);
             if (method.isAnnotationPresent(LoggerAtm.class)) logger(method.getName());
@@ -101,11 +102,11 @@ public class BusinessLogic {
         return scanner.next();
     }
 
-
+    @LoggerAtm
     private static String accountChoice(Account account, Scanner scanner) {
         try {
             Method method = BusinessLogic.class.
-                    getMethod(
+                    getDeclaredMethod(
                             "accountChoice",
                             Account.class,
                             Scanner.class);
@@ -127,11 +128,11 @@ public class BusinessLogic {
         }
     }
 
-
+    @LoggerAtm
     private static Account acctTransfer(String instance, UserAccounts userAccounts) {
         try {
             Method method = BusinessLogic.class.
-                    getMethod("acctTransfer",
+                    getDeclaredMethod("acctTransfer",
                             String.class,
                             UserAccounts.class);
             if (method.isAnnotationPresent(LoggerAtm.class)) logger(method.getName());
@@ -149,11 +150,11 @@ public class BusinessLogic {
         }
     }
 
-
+    @LoggerAtm
     private static String checkAccountTransfer(String accountType, Scanner scanner) {
         try {
             Method method = BusinessLogic.class.
-                    getMethod(
+                    getDeclaredMethod(
                             "checkAccountTransfer",
                             String.class,
                             Scanner.class);
@@ -167,7 +168,7 @@ public class BusinessLogic {
         return accountType;
     }
 
-
+    @LoggerAtm
     private static boolean isOperationLimitReached(Atm atm, int sum) {
 
         return sum <= atm.getClass().getAnnotation(CashLimit.class).value();
